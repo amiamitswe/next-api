@@ -21,5 +21,15 @@ export default function handler(req, res) {
     comments.splice(index, 1);
 
     res.status(200).json(deletedComment);
+  } else if (req.method === "PUT") {
+    const updateComment = req.body.updateComment;
+
+    const index = comments.findIndex(
+      (comment) => comment.id === parseInt(commentId)
+    );
+
+    const update = comments[index];
+    update.comment = updateComment;
+    res.status(200).json(update);
   }
 }

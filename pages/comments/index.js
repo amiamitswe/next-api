@@ -3,6 +3,8 @@ import React, { useState } from "react";
 function CustomerComments() {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
+  const [showInput, setShowInput] = useState("");
+  const [updateComment, setUpdateComment] = useState("");
 
   const fetchCommentsHandler = async () => {
     const response = await fetch("/api/comments");
@@ -30,8 +32,23 @@ function CustomerComments() {
     });
     const data = await response.json();
     console.log(data);
-    fetchCommentsHandler()
+    fetchCommentsHandler();
   };
+
+  const updateCommentHandler = async (id) => {
+    const response= await fetch(`/api/comments/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ updateComment }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    const data = await response.json();
+    console.log(data);
+    setUpdateComment('')
+    setShowInput(null)
+    fetchCommentsHandler()
+  }
 
   return (
     <div>
@@ -51,6 +68,25 @@ function CustomerComments() {
           <button onClick={() => deleteCommentHandler(comment.id)}>
             Delete
           </button>
+          {showInput === comment.id ? (
+            <div>
+              <input
+                type="text"
+                value={updateComment}
+                onChange={(e) => setUpdateComment(e.target.value)}
+              />{" "}
+              <button onClick={() => updateCommentHandler(comment.id)}>Update</button>
+            </div>
+          ) : (
+            <button
+              onClick={() => {
+                setShowInput(comment.id);
+                setUpdateComment(comment.comment);
+              }}
+            >
+              Edit Comment
+            </button>
+          )}
         </div>
       ))}
     </div>
