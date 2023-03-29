@@ -24,6 +24,15 @@ function CustomerComments() {
     console.log(data);
   };
 
+  const deleteCommentHandler = async (id) => {
+    const response = await fetch(`/api/comments/${id}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    console.log(data);
+    fetchCommentsHandler()
+  };
+
   return (
     <div>
       <div>
@@ -38,7 +47,10 @@ function CustomerComments() {
 
       {comments.map((comment) => (
         <div key={comment.id}>
-          {comment.id}. {comment.comment}
+          {comment.id}. {comment.comment}{" "}
+          <button onClick={() => deleteCommentHandler(comment.id)}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
