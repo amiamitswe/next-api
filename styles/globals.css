@@ -105,3 +105,32 @@ a {
     color-scheme: dark;
   }
 }
+
+
+.header {
+  width: 100%;
+  background-color: teal;
+  color: white;
+  text-align: center;
+  padding: 1.4rem;
+  font-size: 2rem;
+}
+
+.footer {
+  width: 100%;
+  background-color: teal;
+  color: white;
+  text-align: center;
+  padding: 1.4rem;
+  font-size: 2rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 2rem;
+}
